@@ -34,19 +34,44 @@ a{color:inherit;}
 .bokeh:nth-child(7){width:5px; height:5px; background:var(--gold); top:75%; left:68%; animation-duration:10s; animation-delay:2s;}
 .bokeh:nth-child(8){width:3px; height:3px; background:var(--yellow); top:45%; left:48%; animation-duration:14s;}
 @keyframes float{0%,100%{transform:translateY(0) translateX(0);} 50%{transform:translateY(-26px) translateX(10px);}}
-.loader{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
-  background:radial-gradient(ellipse at 50% 40%, #2A0F06 0%, var(--ink) 60%, #050202 100%);
-  transition:opacity .6s ease, visibility .6s ease;}
+
+.loader{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; overflow:hidden;
+  background:radial-gradient(ellipse at 50% 42%, #2A0F06 0%, var(--ink) 60%, #050202 100%);
+  transition:opacity .7s ease, visibility .7s ease;}
 .loader.hide{opacity:0; visibility:hidden; pointer-events:none;}
-.loader-inner{text-align:center;}
-.loader-mark{font-size:2.6rem; font-weight:800; letter-spacing:-.02em; margin-bottom:22px;
+.loader-aurora{position:absolute; inset:-40%; background:conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,107,26,.22) 55deg, transparent 130deg, rgba(255,211,122,.18) 210deg, transparent 300deg, rgba(232,53,43,.16) 340deg, transparent 360deg); animation:loaderSpin 7s linear infinite;}
+@keyframes loaderSpin{ to{transform:rotate(360deg);} }
+.loader-inner{position:relative; z-index:2; text-align:center;}
+.flame-loader{position:relative; width:150px; height:150px; margin:0 auto 20px; perspective:500px;}
+.flame-ring-svg{position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg);}
+.flame-ring-track{fill:none; stroke:rgba(255,246,236,.1); stroke-width:3;}
+.flame-ring-fill{fill:none; stroke:url(#ringGrad); stroke-width:3; stroke-linecap:round; transition:stroke-dashoffset .12s linear;}
+.loader-monogram{position:absolute; left:50%; top:50%; width:118px; height:70px; margin-left:-59px; margin-top:-35px;
+  display:flex; align-items:center; justify-content:center; transform-style:preserve-3d; animation:loaderTilt 3.2s ease-in-out infinite;}
+@keyframes loaderTilt{0%,100%{transform:rotateY(-16deg) rotateX(6deg);} 50%{transform:rotateY(16deg) rotateX(-5deg);}}
+.loader-glass-letters{position:relative; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:2.15rem; letter-spacing:-.02em;
+  background:linear-gradient(180deg, #fff 0%, rgba(255,246,236,.94) 16%, var(--gold) 42%, var(--orange) 72%, var(--red) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:1px 1px 0 rgba(168,55,0,.55), 2px 2px 0 rgba(150,45,0,.5), 3px 3px 0 rgba(130,35,0,.45),
+    4px 4px 0 rgba(110,25,0,.4), 5px 5px 0 rgba(90,18,0,.35), 6px 8px 12px rgba(0,0,0,.5);
+  filter:drop-shadow(0 10px 16px rgba(232,53,43,.4));}
+.loader-glass-letters::before{content:attr(data-text); position:absolute; inset:0; color:rgba(255,255,255,.85);
+  -webkit-mask-image:linear-gradient(180deg, black 0%, black 28%, transparent 55%);
+  mask-image:linear-gradient(180deg, black 0%, black 28%, transparent 55%);
+  mix-blend-mode:screen; filter:blur(.6px); transform:translate(-1.5px,-1.5px);}
+.ember-particle{position:absolute; bottom:34px; border-radius:50%; opacity:0; animation:emberRise 2.4s ease-in infinite;}
+.ember-particle:nth-child(1){left:46%; width:4px; height:4px; background:var(--gold); animation-delay:.1s; --dx:8px;}
+.ember-particle:nth-child(2){left:58%; width:3px; height:3px; background:var(--orange); animation-delay:.7s; --dx:-14px;}
+.ember-particle:nth-child(3){left:40%; width:3px; height:3px; background:var(--gold); animation-delay:1.3s; --dx:12px;}
+.ember-particle:nth-child(4){left:64%; width:5px; height:5px; background:var(--yellow); animation-delay:1.7s; --dx:-6px;}
+.ember-particle:nth-child(5){left:50%; width:3px; height:3px; background:var(--orange); animation-delay:.4s; --dx:4px;}
+@keyframes emberRise{0%{opacity:0; transform:translate(0,0) scale(1);} 18%{opacity:1;} 100%{opacity:0; transform:translate(var(--dx,10px),-150px) scale(.25);}}
+.loader-mark{font-size:2.1rem; font-weight:800; letter-spacing:-.02em; margin-bottom:10px;
   background:linear-gradient(120deg,var(--gold),var(--orange) 55%,var(--red)); background-size:200% auto;
   -webkit-background-clip:text; background-clip:text; color:transparent; animation:sheen 2.2s linear infinite;}
 .loader-mark span{color:var(--gold);}
-.loader-bar{width:190px; height:3px; border-radius:2px; background:rgba(255,246,236,.12); overflow:hidden; margin:0 auto;}
-.loader-fill{height:100%; width:35%; border-radius:2px; background:linear-gradient(90deg,var(--gold),var(--orange),var(--red)); animation:loadFill 1.5s ease-in-out infinite;}
-@keyframes loadFill{0%{margin-left:-40%;} 100%{margin-left:100%;}}
-.loader-label{margin-top:14px; font-size:.78rem; opacity:.55; letter-spacing:.05em; text-transform:uppercase;}
+.loader-pct{font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.1rem; color:var(--cream); letter-spacing:.02em;}
+.loader-label{margin-top:10px; font-size:.78rem; opacity:.6; letter-spacing:.05em; text-transform:uppercase; height:16px; transition:opacity .28s ease;}
 .grain{position:fixed; inset:0; z-index:200; pointer-events:none; opacity:.045; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
@@ -160,7 +185,6 @@ section{padding:100px 0; position:relative; z-index:1;}
 .plan .btn{width:100%; text-align:center; display:block;}
 @media(max-width:760px){.price-grid{grid-template-columns:1fr;}}
 
-/* CONTRIBUTION — 3D flame + orbiting game cards */
 .contrib-head{max-width:640px; margin-bottom:20px;}
 .flame-stage{position:relative; height:480px; border-radius:24px; display:flex; align-items:center; justify-content:center; perspective:1200px; overflow:hidden; cursor:ns-resize;}
 .flame-bg{position:absolute; inset:0; background:radial-gradient(circle at 50% 60%, rgba(255,107,26,.22), transparent 62%); transition:background 1s ease; z-index:0;}
@@ -215,10 +239,32 @@ footer{padding:50px 24px; padding-bottom:calc(50px + env(safe-area-inset-bottom,
 </head>
 <body>
 <div class="loader" id="loader">
+  <div class="loader-aurora"></div>
   <div class="loader-inner">
+    <div class="flame-loader">
+      <svg class="flame-ring-svg" viewBox="0 0 150 150">
+        <defs>
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFD37A"/>
+            <stop offset="55%" stop-color="#FF6B1A"/>
+            <stop offset="100%" stop-color="#E8352B"/>
+          </linearGradient>
+        </defs>
+        <circle class="flame-ring-track" cx="75" cy="75" r="66"/>
+        <circle class="flame-ring-fill" id="ringFill" cx="75" cy="75" r="66"/>
+      </svg>
+      <div class="loader-monogram">
+        <span class="loader-glass-letters" data-text="E&amp;C">E&amp;C</span>
+      </div>
+      <div class="ember-particle"></div>
+      <div class="ember-particle"></div>
+      <div class="ember-particle"></div>
+      <div class="ember-particle"></div>
+      <div class="ember-particle"></div>
+    </div>
     <div class="loader-mark">EMBER<span>&</span>CO.</div>
-    <div class="loader-bar"><div class="loader-fill"></div></div>
-    <div class="loader-label">Igniting the experience</div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+    <div class="loader-label" id="loaderLabel">Igniting the experience</div>
   </div>
 </div>
 <div class="vip-bg">
@@ -446,12 +492,59 @@ footer{padding:50px 24px; padding-bottom:calc(50px + env(safe-area-inset-bottom,
 
 <script>
 try{
-  window.addEventListener('load', function(){
-    setTimeout(function(){
-      var loader = document.getElementById('loader');
-      if(loader){ loader.classList.add('hide'); setTimeout(function(){ loader.style.display='none'; }, 650); }
+  (function(){
+    var loader = document.getElementById('loader');
+    var pctEl = document.getElementById('loaderPct');
+    var ringFill = document.getElementById('ringFill');
+    var labelEl = document.getElementById('loaderLabel');
+    var circumference = 2 * Math.PI * 66;
+    ringFill.style.strokeDasharray = circumference;
+    ringFill.style.strokeDashoffset = circumference;
+    var messages = ['Igniting the experience','Stoking the fire','Fanning the flames','Almost ready'];
+    var msgIndex = 0;
+    var msgTimer = setInterval(function(){
+      msgIndex = (msgIndex + 1) % messages.length;
+      labelEl.style.opacity = 0;
+      setTimeout(function(){
+        labelEl.textContent = messages[msgIndex];
+        labelEl.style.opacity = .6;
+      }, 260);
     }, 900);
-  });
+    var minDuration = 3000;
+    var startTime = performance.now();
+    var pageLoaded = false;
+    var finished = false;
+    window.addEventListener('load', function(){ pageLoaded = true; });
+    function finish(){
+      if(finished) return;
+      finished = true;
+      pctEl.textContent = '100%';
+      ringFill.style.strokeDashoffset = 0;
+      clearInterval(msgTimer);
+      setTimeout(function(){
+        loader.classList.add('hide');
+        setTimeout(function(){ loader.style.display = 'none'; }, 700);
+      }, 260);
+    }
+    function frame(now){
+      if(finished) return;
+      var elapsed = now - startTime;
+      var minRatio = Math.min(elapsed / minDuration, 1);
+      if(minRatio >= 1 && pageLoaded){
+        finish();
+        return;
+      }
+      var cap = pageLoaded ? 100 : 92;
+      var displayPct = Math.min(99, Math.floor(minRatio * cap));
+      pctEl.textContent = displayPct + '%';
+      var offset = circumference - (displayPct / 100) * circumference;
+      ringFill.style.strokeDashoffset = offset;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  window.addEventListener('load', function(){});
 
   var els = document.querySelectorAll('.reveal');
   var io = new IntersectionObserver(function(entries){
@@ -503,10 +596,10 @@ try{
 
   function layout(){
     for(var i=0;i<N;i++){
-      var t = (((i / N) + progress) % 1 + 1) % 1; // 0..1, wraps forever
+      var t = (((i / N) + progress) % 1 + 1) % 1;
       var y = (t - 0.5) * (bandHalf * 2);
       var angle = t * 360 * turns;
-      var edge = Math.abs(t - 0.5) * 2; // 0 center .. 1 top/bottom edge
+      var edge = Math.abs(t - 0.5) * 2;
       var opacity = Math.max(0, 1 - Math.pow(edge, 2.2));
       var el = cardEls[i];
       el.style.transform = 'translateY(' + y.toFixed(1) + 'px) rotateY(' + angle.toFixed(1) + 'deg) translateZ(' + radius + 'px)';
@@ -522,7 +615,7 @@ try{
   requestAnimationFrame(tick);
   flameStage.addEventListener('wheel', function(e){
     e.preventDefault();
-    progress += e.deltaY * 0.0009; // vertical scroll drives the spiral, top to bottom
+    progress += e.deltaY * 0.0009;
   }, {passive:false});
   var touchStartY = 0;
   flameStage.addEventListener('touchstart', function(e){ touchStartY = e.touches[0].clientY; }, {passive:true});
